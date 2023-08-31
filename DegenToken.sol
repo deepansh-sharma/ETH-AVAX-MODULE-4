@@ -14,21 +14,26 @@ contract DegenToken is ERC20, Ownable, ERC20Burnable {
         function mint(address to, uint256 amount) public onlyOwner{
             _mint(to, amount);
         }
+
         function transferTokens(address _reciever, uint amount) external{
             require(balanceOf(msg.sender) >= amount, "you are not owner");
             approve(msg.sender, amount);
             transferFrom(msg.sender, _reciever, amount);
         }
+
         function checkBalance() external view returns(uint){
            return balanceOf(msg.sender);
         }
+
         function burnTokens(uint amount) external{
             require(balanceOf(msg.sender)>= amount, "You do not have enough Tokens");
             _burn(msg.sender, amount);
         }
+
         function gameStore() public pure returns(string memory) {
-            return "1. ProPlayer NFT value = 200 \n 2. SuperNinja value = 100 /n 3. DegenCap value = 75";
+            return "1.Player1 NFT value = 200 \n 2. Player2 value = 100 /n 3. Player3 value = 75";
         }
+        
         function reedemTokens(uint choice) external payable{
             require(choice<=3,"Invalid selection");
             if(choice ==1){
@@ -51,4 +56,3 @@ contract DegenToken is ERC20, Ownable, ERC20Burnable {
         }
 
 }
-
